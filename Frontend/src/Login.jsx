@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Login(){
 
     const[email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const navigate = useNavigate
+
+
+    const handleSumbit = (e) =>{
+        e.preventDefault()
+        axios.post("http://localhost/3000/login", {email,password})
+        .then(result => {console.log(result)
+            navigate('/home')
+        })
+        .catch(err => console.log(err) )
+    }
+
     return(
         <div className="d-flex bg-secondary vh-100 justify-content-center align-items-center">
             <div className="bg-white p-3 rounded w-25 ">
@@ -23,7 +35,7 @@ function Login(){
                             className="form-control"
                             autoComplete="off"
                             name="email"
-                            onChange={(e)=>{e.target.value}}>
+                            onChange={(e)=> setEmail(e.target.value)}>
                         </input>
                     </div>
             
@@ -39,7 +51,7 @@ function Login(){
                             className="form-control"
                             autoComplete="off"
                             name="password"
-                            onChange={(e)=>{e.target.value}}>
+                            onChange={(e)=>setPassword(e.target.value)}>
                         </input>
                     </div>
                     <button className="btn btn-success w-100">Login</button>
