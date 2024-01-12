@@ -1,11 +1,26 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios"
+
 function Signup(){
+    const [name, setName] = useState()
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+
+    const handleSumbit = (e) =>{
+        e.preventDefault()
+        axios.post("", {name,email,password})
+        .then(result => console.log(result))
+        .catch(err =>console.log(err))
+    }
+
     return(
         <div className="d-flex bg-secondary vh-100 justify-content-center align-items-center " >
             <div className="w-25 bg-white p-3 rounded">
                 <h2>
                     Register
                 </h2>
-                <form>
+                <form onSubmit={handleSumbit}>
                     <div className="m-3">
                         <label htmlFor="name">
                             <strong>Name:-</strong>
@@ -16,6 +31,7 @@ function Signup(){
                         placeholder="Enter Name"
                         name="name"
                         className="form-control rounded-0"
+                        onChange={(e)=> setName(e.target.value)}
                         >
                         </input>
                     </div>
@@ -28,7 +44,8 @@ function Signup(){
                         placeholder="Enter Email"
                         autoComplete="off"
                         name="email"
-                        className="form-control rounded-0">
+                        className="form-control rounded-0"
+                        onChange={(e)=> setEmail(e.target.value)}>
                         </input>
                     </div>
                     <div className="m-3">
@@ -40,16 +57,17 @@ function Signup(){
                         placeholder="Enter Password"
                         autoComplete="off"
                         name="password"
-                        className="form-control rounded-0"></input>
+                        className="form-control rounded-0"
+                        onChange={(e)=> setPassword(e.target.value)}></input>
                     </div>
-                    <button tyoe="sumbit" className="w-100 btn btn-success rounded-2">Register
+                    <button type="sumbit" className="w-100 btn btn-success rounded-2">Register
                     </button>
-                    <p>Already Have an Account</p>
-                    <button className="btn btn-default border w-100 bg-light rounded-2 text-decoration-none">Login</button>
-                </form>
-
+                    </form>
+                    <p >Already Have an Account</p>
+                    <Link to="/login" className="btn btn-default border-black w-100 bg-light rounded-2 text-decoration-none">
+                        Login</Link>
             </div>
-
+ 
         </div>
     )
 }
