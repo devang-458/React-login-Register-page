@@ -1,4 +1,7 @@
+//login.jsx
+
 import React, { useState } from "react";
+import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -6,23 +9,25 @@ function Login(){
 
     const[email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const navigate = useNavigate
+    const navigate = useNavigate()
 
 
-    const handleSumbit = (e) =>{
+    const handleSubmit = (e) =>{
         e.preventDefault()
-        axios.post("http://localhost/3000/login", {email,password})
+        axios.post("http://localhost:3000/login", {email,password})
         .then(result => {console.log(result)
-            navigate('/home')
+            if(result.data === "Success"){
+                navigate('/home')
+            }
         })
-        .catch(err => console.log(err) )
+        .catch(err => console.log(alert("login Failed"),err) )
     }
 
     return(
         <div className="d-flex bg-secondary vh-100 justify-content-center align-items-center">
             <div className="bg-white p-3 rounded w-25 ">
                 <h2>Login</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="m-3">
                         <label htmlFor="email">
                             <strong>
@@ -54,7 +59,7 @@ function Login(){
                             onChange={(e)=>setPassword(e.target.value)}>
                         </input>
                     </div>
-                    <button className="btn btn-success w-100">Login</button>
+                    <button className="btn btn-success w-100" type="submit">Login</button>
                 </form>
                 <p>You don't have Account</p>
                 <Link to="/register" className="btn btn-default border-black w-100">Register</Link>

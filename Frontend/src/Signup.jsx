@@ -1,3 +1,5 @@
+//signup.jsx
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"
@@ -60,7 +62,7 @@ function Signup(){
                         className="form-control rounded-0"
                         onChange={(e)=> setPassword(e.target.value)}></input>
                     </div>
-                    <button type="sumbit" className="w-100 btn btn-success rounded-2">Register
+                    <button type="submit" className="w-100 btn btn-success rounded-2">Register
                     </button>
                     </form>
                     <p >Already Have an Account</p>
